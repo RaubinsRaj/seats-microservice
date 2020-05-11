@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.dao.SeatRepository;
-import com.cg.entity.Bus;
 import com.cg.entity.Seats;
 
 
@@ -21,7 +20,8 @@ public class SeatController {
 	@Autowired
 	private SeatRepository seatRepository;
 	
-	@GetMapping(path="seats/checkStatusOfSeats/busId/{busId}/date/{date}")
+	//check status of seats according to busid and date
+	@GetMapping(path="/seats/checkStatusOfSeats/busId/{busId}/date/{date}")
 	public List<String> SeatStatus(@PathVariable String busId,@PathVariable String date)
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -29,7 +29,7 @@ public class SeatController {
 		
 		Seats seat=seatRepository.findSeatByBusIdAndDate(busId, date1);
 		if(seat!=null)
-		{
+    	{
 			List<String> status=new ArrayList<String>();
 			status.add(seat.getSeat1());
 			status.add(seat.getSeat2());
@@ -37,6 +37,9 @@ public class SeatController {
 			status.add(seat.getSeat4());
 			status.add(seat.getSeat5());
 			return status;
+		
+		
+		
 //			if(seat.getSeat1().equals("occupied")&&seat.getDate().equals(LocalDate.now()))
 //			{
 //				return "seat is occupied!! search for another seat";
@@ -58,11 +61,11 @@ public class SeatController {
 			Seats newSeat=new Seats();
 			newSeat.setDate(date1);
 			newSeat.setBusId(busId);
-			newSeat.setSeat1("Available");
-			newSeat.setSeat2("Available");
-			newSeat.setSeat3("Available");
-			newSeat.setSeat4("Available");
-			newSeat.setSeat5("Available");
+			newSeat.setSeat1("available");
+			newSeat.setSeat2("available");
+			newSeat.setSeat3("available");
+			newSeat.setSeat4("available");
+			newSeat.setSeat5("available");
 			seatRepository.save(newSeat);
 			List<String> status=new ArrayList<String>();
 			status.add(newSeat.getSeat1());
@@ -72,10 +75,12 @@ public class SeatController {
 			status.add(newSeat.getSeat5());
 			return status;		
 		}
+	
 				
 	}
 	
-	@GetMapping(path="seats/bookSeat/busId/{busId}/date/{date}/seat/{seatNo}")
+	//book seats accroding to busid date and seatno
+	@GetMapping(path="/seats/bookSeat/busId/{busId}/date/{date}/seat/{seatNo}")
 	public String SeatBooking(@PathVariable String busId,@PathVariable String date,@PathVariable String seatNo)
 	{
 		
@@ -84,6 +89,7 @@ public class SeatController {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate date1=LocalDate.parse(date,formatter);
 			Seats existingSeat=seatRepository.findSeatByBusIdAndDate(busId, date1);
+			System.out.println(existingSeat.getSeat1());
 			if(existingSeat.getSeat1().equals("available"))
 			{
 				existingSeat.setSeat1("occupied");

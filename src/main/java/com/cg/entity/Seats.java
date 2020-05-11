@@ -1,12 +1,15 @@
 package com.cg.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Columns;
 
 @Entity
 public class Seats {
@@ -30,23 +33,36 @@ public class Seats {
 	@Column
 	private String seat5;
 	
+	
+//	@Columns(columns = {
+//			@Column(name = "seat1"),
+//			@Column(name = "seat2"),
+//			@Column(name = "seat3"),
+//			@Column(name = "seat4"),
+//			@Column(name = "seat5"),
+//		})
+//		private List<Seats> statusOfSeats;
+//	
+
+	
+	
 	public Seats() {
 			// TODO Auto-generated constructor stub
 	}
 
-	public Seats(int id, String busId, LocalDate date, String seat1, String seat2, String seat3, String seat4,
-			String seat5) {
-		this.id = id;
-		this.busId = busId;
-		this.date = date;
-		this.seat1 = seat1;
-		this.seat2 = seat2;
-		this.seat3 = seat3;
-		this.seat4 = seat4;
-		this.seat5 = seat5;
-	}
-
-	
+//	public Seats(int id, String busId, LocalDate date, String seat1, String seat2, String seat3, String seat4,
+//			String seat5) {
+//		this.id = id;
+//		this.busId = busId;
+//		this.date = date;
+//		this.seat1 = seat1;
+//		this.seat2 = seat2;
+//		this.seat3 = seat3;
+//		this.seat4 = seat4;
+//		this.seat5 = seat5;
+//	}
+//
+//	
 	public int getId() {
 		return id;
 	}
@@ -113,6 +129,8 @@ public class Seats {
 	
 	
 	
+	
+
 	
 	
 	
